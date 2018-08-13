@@ -6,7 +6,6 @@
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="CurrencyExchange" />
-          <element id="module-output" name="currency-exchange" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.0" />
@@ -20,12 +19,8 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-jcl:5.0.8.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-web:5.0.8.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:5.0.8.RELEASE" />
-          <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.16.20" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:5.0.8.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-tx:5.0.8.RELEASE" />
         </element>
       </element>
-      <element id="javaee-facet-resources" facet="currency-exchange/web/Web" />
     </root>
   </artifact>
 </component>

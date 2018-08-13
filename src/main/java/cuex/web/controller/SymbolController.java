@@ -1,14 +1,10 @@
 package cuex.web.controller;
 
-import cuex.web.model.Symbol;
 import cuex.web.model.dto.SymbolsDto;
-import cuex.web.symbol.SymbolService;
+import cuex.web.service.SymbolService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/symbols")
@@ -22,8 +18,6 @@ public class SymbolController {
 
     @GetMapping
     public SymbolsDto allAvailableSymbols() {
-        final Map<String, String> codeNameMap = symbolService.findAll().stream()
-                .collect(Collectors.toMap(Symbol::getCode, Symbol::getName));
-        return new SymbolsDto(codeNameMap);
+        return symbolService.allSymbolsAsDto();
     }
 }

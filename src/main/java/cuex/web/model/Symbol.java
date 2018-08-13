@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Symbol {
+public final class Symbol {
 
     private String code;
     private String name;
