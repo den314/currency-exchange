@@ -2,7 +2,6 @@
   <artifact type="exploded-war" name="CurrencyExchange:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/CurrencyExchange_war_exploded</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="CurrencyExchange/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="CurrencyExchange" />
@@ -23,6 +22,7 @@
           <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.16.20" />
           <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:5.0.8.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-tx:5.0.8.RELEASE" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.6" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="currency-exchange/web/Web" />
