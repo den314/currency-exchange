@@ -23,7 +23,7 @@ import static org.hamcrest.CoreMatchers.is;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {WebConfig.class})
 @WebAppConfiguration
-class SymbolControllerTest {
+class RateControllerTest {
 
     @Autowired
     private WebApplicationContext ctx;
@@ -35,13 +35,13 @@ class SymbolControllerTest {
     }
 
     @Test
-    void givenApiSymbols_thenReturnSymbolsAsJson() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(URI.create("/api/symbols")))
+    void givenApiLatest_thenReturnRatesAsJson() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(URI.create("/api/latest")))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.symbols.AED", is("United Arab Emirates Dirham")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.symbols.AMD", is("Armenian Dram")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.symbols.ALL", is("Albanian Lek")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.symbols.AFN", is("Afghan Afghani")));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.rates.BTC", is(0.000189d)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.rates.PLN", is(0.233086722d)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.rates.USD", is(0.875541741d)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.rates.GBP", is(1.12126253d)));
     }
 
 }
