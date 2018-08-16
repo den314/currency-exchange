@@ -1,4 +1,4 @@
-package cuex.config;
+package cuex.profile.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
