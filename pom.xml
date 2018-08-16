@@ -19,6 +19,8 @@
         <assertj-core.version>3.10.0</assertj-core.version>
         <junit-jupiter-engine.version>5.2.0</junit-jupiter-engine.version>
         <springfox-swagger.version>2.9.2</springfox-swagger.version>
+        <logback.version>1.2.2</logback.version>
+        <h2.version>1.4.197</h2.version>
     </properties>
 
     <dependencies>
@@ -51,7 +53,7 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.4.197</version>
+            <version>${h2.version}</version>
             <scope>runtime</scope>
         </dependency>
         <!-- TESTING -->
@@ -108,6 +110,11 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${springfox-swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
         </dependency>
     </dependencies>
 
