@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Arrays;
 import java.util.List;
 
-@Profile(value = {"mock", "default"})
+@Profile(value = "mock")
 @Repository
 public class MockSymbolRepository implements SymbolRepository {
 
