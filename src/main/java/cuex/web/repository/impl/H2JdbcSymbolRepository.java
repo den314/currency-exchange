@@ -43,7 +43,6 @@ public class H2JdbcSymbolRepository implements SymbolRepository {
 
     @Override
     public void saveAll(Collection<Symbol> newSymbols) {
-        return null;
     }
 
     @Override
@@ -58,7 +57,7 @@ public class H2JdbcSymbolRepository implements SymbolRepository {
 
     @Override
     public boolean delete(Symbol toDelete) {
-        return null;
+        return false;
     }
 
     @Override

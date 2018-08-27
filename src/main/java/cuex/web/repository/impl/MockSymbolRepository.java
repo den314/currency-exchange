@@ -2,19 +2,23 @@ package cuex.web.repository.impl;
 
 import cuex.web.model.Symbol;
 import cuex.web.repository.SymbolRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-@Profile(value = {"mock", "default"})
+@Profile(value = "mock")
 @Repository
 public class MockSymbolRepository implements SymbolRepository {
+
+    private static final Logger log = LoggerFactory.getLogger(MockSymbolRepository.class);
 
     private static final Supplier<IllegalArgumentException> SYMBOL_NOT_FOUND =
             () -> new IllegalArgumentException("symbol not found");
@@ -23,12 +27,11 @@ public class MockSymbolRepository implements SymbolRepository {
 
     @PostConstruct
     private void init() {
-        this.symbols = Arrays.asList(
-                new Symbol("AED", "United Arab Emirates Dirham"),
-                new Symbol("AFN", "Afghan Afghani"),
-                new Symbol("ALL", "Albanian Lek"),
-                new Symbol("AMD", "Armenian Dram")
-        );
+        this.symbols = new ArrayList<>();
+        symbols.add(new Symbol("AED", "United Arab Emirates Dirham"));
+        symbols.add(new Symbol("AFN", "Afghan Afghani"));
+        symbols.add(new Symbol("ALL", "Albanian Lek"));
+        symbols.add(new Symbol("AMD", "Armenian Dram"));
     }
 
     @Override
@@ -46,19 +49,31 @@ public class MockSymbolRepository implements SymbolRepository {
 
     @Override
     public Symbol save(Symbol newSymbol) {
+        if (exists(newSymbol)) {
+            throw new IllegalStateException("Symbol already exist");
+        }
         symbols.add(newSymbol);
         return newSymbol;
     }
 
     @Override
     public void saveAll(Collection<Symbol> newSymbols) {
-        symbols.addAll(newSymbols);
+        for (Symbol newSymbol : newSymbols) {
+            if (symbols.contains(newSymbol)) {
+                log.info("Cannot add symbol, already exist: " + newSymbol);
+                continue;
+            }
+            symbols.add(newSymbol);
+        }
     }
 
     @Override
     public Symbol update(Symbol toUpdate) {
         if (exists(toUpdate)) {
-            save(toUpdate);
+            final Symbol symbol = find(toUpdate);
+            delete(symbol);
+            symbol.setName(toUpdate.getName());
+            save(symbol);
         } else {
             throw new IllegalArgumentException("Symbol to update does not exist.");
         }
@@ -78,7 +93,7 @@ public class MockSymbolRepository implements SymbolRepository {
     public Symbol find(Symbol existing) {
         Objects.requireNonNull(existing);
         return symbols.stream()
-                .filter(symbol -> symbol.equals(existing))
+                .filter(symbol -> symbol.getCode().equals(existing.getCode()))
                 .findFirst().orElseThrow(SYMBOL_NOT_FOUND);
     }
 
@@ -109,5 +124,9 @@ public class MockSymbolRepository implements SymbolRepository {
         } catch (IllegalArgumentException ex) {
             return false;
         }
+    }
+
+    public void deleteAll() {
+        symbols.clear();
     }
 }

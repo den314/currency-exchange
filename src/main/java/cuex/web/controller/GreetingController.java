@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/home")
-public class HomeController {
+@RequestMapping("/greet")
+public class GreetingController {
 
     @GetMapping
     public List<String> greetings() {
