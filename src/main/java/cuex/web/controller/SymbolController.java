@@ -5,6 +5,7 @@ import cuex.web.model.Symbol;
 import cuex.web.model.dto.SymbolsDto;
 import cuex.web.service.SymbolService;
 import cuex.web.service.impl.CSVProcessorImpl;
+import cuex.web.service.impl.SymbolServiceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -38,6 +40,13 @@ public class SymbolController {
 
         final List<Symbol> symbols = toSymbols(file);
         symbolService.saveAll(symbols);
+    }
+
+    /* BAD! Only for showcase purpose */
+    @GetMapping("/synchronize")
+    public void synchroWithRemoteServer(HttpServletResponse response) throws IOException {
+        ((SymbolServiceImpl)symbolService).synchronizeWithRemoteServer();
+        response.sendRedirect("/api/symbols");
     }
 
     private List<Symbol> toSymbols(@RequestParam("file") MultipartFile file) {

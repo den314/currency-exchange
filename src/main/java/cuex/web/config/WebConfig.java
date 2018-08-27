@@ -4,7 +4,10 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.LocaleResolver;
@@ -80,5 +83,17 @@ public class WebConfig implements WebMvcConfigurer {
         multipartResolver.setMaxUploadSize(10485760); // 10MB
         multipartResolver.setMaxUploadSizePerFile(1048576); // 1MB
         return multipartResolver;
+    }
+
+    @Bean
+    public PropertySourcesPlaceholderConfigurer propertyConfigurer() {
+        final PropertySourcesPlaceholderConfigurer propertyConfigurer = new PropertySourcesPlaceholderConfigurer();
+        propertyConfigurer.setLocation(new ClassPathResource("application.properties"));
+        return propertyConfigurer;
+    }
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 }
