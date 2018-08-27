@@ -6,6 +6,7 @@ import cuex.web.repository.SymbolRepository;
 import cuex.web.service.SymbolService;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -31,4 +32,10 @@ public class SymbolServiceImpl implements SymbolService {
         
         return new SymbolsDto(codeNameMap);
     }
+
+    @Override
+    public void saveAll(Collection<Symbol> newSymbols) {
+        symbolRepository.saveAll(newSymbols);
+    }
+
 }
