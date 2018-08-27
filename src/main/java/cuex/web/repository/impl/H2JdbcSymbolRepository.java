@@ -3,32 +3,27 @@ package cuex.web.repository.impl;
 import cuex.web.model.Symbol;
 import cuex.web.repository.SymbolRepository;
 import org.springframework.context.annotation.Profile;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.PostConstruct;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-@Profile(value = {"mock", "default"})
+@Profile("h2-jdbc")
 @Repository
-public class MockSymbolRepository implements SymbolRepository {
+public class H2JdbcSymbolRepository implements SymbolRepository {
 
-    private List<Symbol> symbols;
+    private JdbcTemplate jdbcTemplate;
 
-    @PostConstruct
-    private void init() {
-        this.symbols = Arrays.asList(
-                new Symbol("AED", "United Arab Emirates Dirham"),
-                new Symbol("AFN", "Afghan Afghani"),
-                new Symbol("ALL", "Albanian Lek"),
-                new Symbol("AMD", "Armenian Dram")
-        );
+    public H2JdbcSymbolRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
     public List<Symbol> findAll() {
-        return symbols;
+        return jdbcTemplate.query("SELECT * FROM CURRENCY",
+                (resultSet, i) ->
+                        new Symbol(resultSet.getString("code"), resultSet.getString("description")));
     }
 
     @Override
