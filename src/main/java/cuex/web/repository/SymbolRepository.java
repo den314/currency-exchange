@@ -8,8 +8,13 @@ import java.util.List;
 public interface SymbolRepository {
 
     List<Symbol> findAll();
+    Symbol find(String symbolCode);
+    Symbol find(Symbol existing);
     Symbol save(Symbol newSymbol);
-    Symbol saveAll(Collection<Symbol> newSymbols);
+    void saveAll(Collection<Symbol> newSymbols);
     Symbol update(Symbol toUpdate);
-    Symbol delete(Symbol toDelete);
+    boolean delete(String symbolCode);
+    boolean delete(Symbol toDelete);
+    boolean exists(String symbolCode);
+    boolean exists(Symbol symbol);
 }

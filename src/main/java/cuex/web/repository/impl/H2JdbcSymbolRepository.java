@@ -27,12 +27,22 @@ public class H2JdbcSymbolRepository implements SymbolRepository {
     }
 
     @Override
+    public Symbol find(String symbolCode) {
+        return null;
+    }
+
+    @Override
+    public Symbol find(Symbol existing) {
+        return null;
+    }
+
+    @Override
     public Symbol save(Symbol newSymbol) {
         return null;
     }
 
     @Override
-    public Symbol saveAll(Collection<Symbol> newSymbols) {
+    public void saveAll(Collection<Symbol> newSymbols) {
         return null;
     }
 
@@ -42,7 +52,22 @@ public class H2JdbcSymbolRepository implements SymbolRepository {
     }
 
     @Override
-    public Symbol delete(Symbol toDelete) {
+    public boolean delete(String symbolCode) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(Symbol toDelete) {
         return null;
+    }
+
+    @Override
+    public boolean exists(String symbolCode) {
+        return false;
+    }
+
+    @Override
+    public boolean exists(Symbol symbol) {
+        return false;
     }
 }
