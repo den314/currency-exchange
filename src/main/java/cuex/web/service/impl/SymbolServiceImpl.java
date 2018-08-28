@@ -64,7 +64,7 @@ public class SymbolServiceImpl implements SymbolService {
         final ResponseEntity<SymbolsDto> responseEntity = restTemplate.getForEntity(url, SymbolsDto.class);
         final SymbolsDto body = responseEntity.getBody();
 
-        log.info("Queried remote server, found %d symbols", body.getCurrencySymbols().size());
+        log.info("Queried remote server, found {} symbols", body.getCurrencySymbols().size());
         final List<Symbol> remoteSymbols = toSymbolList(body);
 
         symbolRepository.saveAll(remoteSymbols);

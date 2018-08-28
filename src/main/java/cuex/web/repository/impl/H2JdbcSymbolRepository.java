@@ -2,7 +2,10 @@ package cuex.web.repository.impl;
 
 import cuex.web.model.Symbol;
 import cuex.web.repository.SymbolRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
@@ -14,6 +17,8 @@ import java.util.List;
 @Profile("h2-jdbc")
 @Repository
 public class H2JdbcSymbolRepository implements SymbolRepository {
+
+    private static final Logger log = LoggerFactory.getLogger(H2JdbcSymbolRepository.class);
 
     private final RowMapper<Symbol> symbolRowMapper = (rs, numRow) ->
             new Symbol(rs.getString("code"), rs.getString("name"));
@@ -46,7 +51,11 @@ public class H2JdbcSymbolRepository implements SymbolRepository {
 
     @Override
     public Symbol save(Symbol newSymbol) {
-        jdbcTemplate.update("INSERT INTO CURRENCY (code, name) VALUES (?, ?)", newSymbol.getCode(), newSymbol.getName());
+        try {
+            jdbcTemplate.update("INSERT INTO CURRENCY (code, name) VALUES (?, ?)", newSymbol.getCode(), newSymbol.getName());
+        } catch (DataAccessException ex) {
+            log.info("Symbol already exist: " + newSymbol);
+        }
         return newSymbol;
     }
 
