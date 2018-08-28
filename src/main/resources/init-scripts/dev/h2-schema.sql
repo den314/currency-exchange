@@ -1,12 +1,12 @@
 CREATE TABLE IF NOT EXISTS CURRENCY (
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY auto_increment,
     code VARCHAR(8) NOT NULL UNIQUE,
     name VARCHAR(80) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS RATE (
-  id INT PRIMARY KEY,
-  currency_code INT NOT NULL,
+  id INT PRIMARY KEY auto_increment,
+  currency_id INT NOT NULL UNIQUE,
   value DECIMAL (20,5) NOT NULL,
-  FOREIGN KEY (currency_code) REFERENCES CURRENCY(id)
+  FOREIGN KEY (currency_id) REFERENCES CURRENCY(id)
 );
